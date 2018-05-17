@@ -1,17 +1,25 @@
 # react-native-google-places-autocomplete
 Customizable Google Places autocomplete component for iOS and Android React-Native apps
 
-### Preview
+### Changelog
+- 1.3.6 : Fixed accuracy issue.
+- 1.3.5 : Fixed bug where input was being cleared.
+- 1.3.4 : Fixed bug where loading was breaking the component.
+- 1.3.3 : Fixed `key prop` warning  and added loading indicator.
+- 1.3.2 : Added small feature which makes the request on `componentDidMount()` when you
+  already have the default value set.
+- 1.3.1 : Update `react-native` peerDependecy. (> 0.46)
+- 1.3.0 : Added support for React 16 (isMounted() and propTypes bugfix), support for restricted API key and moving from `ListView` to `Flatlist`.
+- 1.2.12 : Fixed render description + docs.
+- 1.2.11 : Fixed current location result `onPress` event.
+- 1.2.10 : Set default `debounce` to `0`. Fixed debounce typing lag.
+- 1.2.9 : Added `isRowScrollable` prop.
+- 1.2.8 : Added `underlineColorAndroid`, `listUnderlayColor`, `renderLeftButton`, `renderRightButton` props. Added `nearbyPlacesAPI` option `None`.
 
-![](https://raw.githubusercontent.com/FaridSafi/react-native-google-places-autocomplete/master/Assets/screenshot.png)
-
-### Installation
-
-1. ```npm install react-native-google-places-autocomplete --save```
-2. Get your [Google Places API keys](https://developers.google.com/places/documentation/) and enable "Google Places API Web Service" (NOT Android or iOS) in the console.
-3. Enable "Google Maps Geocoding API" if you want to use GoogleReverseGeocoding for Current Location
 
 ### Example
+
+![](https://raw.githubusercontent.com/FaridSafi/react-native-google-places-autocomplete/master/Assets/screenshot.png)
 
 ```jsx
 import React from 'react';
@@ -30,24 +38,21 @@ const GooglePlacesInput = () => {
       returnKeyType={'search'} // Can be left out for default return key https://facebook.github.io/react-native/docs/textinput.html#returnkeytype
       listViewDisplayed='auto'    // true/false/undefined
       fetchDetails={true}
-      renderDescription={row => row.description} // custom description render
+      renderDescription={(row) => row.description} // custom description render
       onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
-        console.log(data, details);
+        console.log(data);
+        console.log(details);
       }}
-      
-      getDefaultValue={() => ''}
-      
+      getDefaultValue={() => {
+        return ''; // text input default value
+      }}
       query={{
         // available options: https://developers.google.com/places/web-service/autocomplete
         key: 'YOUR API KEY',
         language: 'en', // language of the results
         types: '(cities)' // default: 'geocode'
       }}
-      
       styles={{
-        textInputContainer: {
-          width: '100%'
-        },
         description: {
           fontWeight: 'bold'
         },
@@ -55,7 +60,7 @@ const GooglePlacesInput = () => {
           color: '#1faadb'
         }
       }}
-      
+
       currentLocation={true} // Will add a 'Current location' button at the top of the predefined places list
       currentLocationLabel="Current location"
       nearbyPlacesAPI='GooglePlacesSearch' // Which API to use: GoogleReverseGeocoding or GooglePlacesSearch
@@ -72,12 +77,20 @@ const GooglePlacesInput = () => {
       predefinedPlaces={[homePlace, workPlace]}
 
       debounce={200} // debounce the requests in ms. Set to 0 to remove debounce. By default 0ms.
-      renderLeftButton={()  => <Image source={require('path/custom/left-icon')} />}
-      renderRightButton={() => <Text>Custom text after the input</Text>}
+      renderLeftButton={() => <Image source={require('path/custom/left-icon')} />}
+      renderRightButton={() => <Text>Custom text after the inputg</Text>}
     />
   );
 }
 ```
+
+
+### Installation
+
+1. ```npm install react-native-google-places-autocomplete --save```
+2. Get your [Google Places API keys](https://developers.google.com/places/) and enable "Google Places API Web Service" (NOT Android or iOS) in the console.
+3. Enable "Google Maps Geocoding API" if you want to use GoogleReverseGeocoding for Current Location
+
 
 
 ### Styling
@@ -140,21 +153,6 @@ const GooglePlacesInput = () => {
 - [x] Google Places terms compliant
 - [x] Current location
 - [x] Predefined places
-
-### Changelog
-- 1.3.6 : Fixed accuracy issue.
-- 1.3.5 : Fixed bug where input was being cleared.
-- 1.3.4 : Fixed bug where loading was breaking the component.
-- 1.3.3 : Fixed `key prop` warning  and added loading indicator.
-- 1.3.2 : Added small feature which makes the request on `componentDidMount()` when you
-  already have the default value set.
-- 1.3.1 : Update `react-native` peerDependecy. (> 0.46)
-- 1.3.0 : Added support for React 16 (isMounted() and propTypes bugfix), support for restricted API key and moving from `ListView` to `Flatlist`.
-- 1.2.12 : Fixed render description + docs.
-- 1.2.11 : Fixed current location result `onPress` event.
-- 1.2.10 : Set default `debounce` to `0`. Fixed debounce typing lag.
-- 1.2.9 : Added `isRowScrollable` prop.
-- 1.2.8 : Added `underlineColorAndroid`, `listUnderlayColor`, `renderLeftButton`, `renderRightButton` props. Added `nearbyPlacesAPI` option `None`.
 
 
 ### License
