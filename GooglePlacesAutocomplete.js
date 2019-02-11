@@ -54,6 +54,9 @@ const defaultStyles = {
   powered: {},
   listView: {
     // flex: 1,
+    // height: 100,
+    backgroundColor: 'blue',
+    padding: 5
   },
   row: {
     padding: 13,
@@ -556,7 +559,16 @@ export default class GooglePlacesAutocomplete extends Component {
   _renderRow = (rowData = {}, sectionID, rowID) => {
     return (
       <ScrollView
-        style={{ flex: 1 }}
+        style={{
+          flex: 1,
+          shadowColor: 'black',
+          shadowOffset: {
+            width: 0,
+            height: 3
+          },
+          shadowOpacity: 0.5,
+          shadowRadius: 3
+        }}
         scrollEnabled={this.props.isRowScrollable}
         keyboardShouldPersistTaps={this.props.keyboardShouldPersistTaps}
         horizontal={true}
