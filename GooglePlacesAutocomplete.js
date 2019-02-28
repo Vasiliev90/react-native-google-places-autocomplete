@@ -463,6 +463,8 @@ export default class GooglePlacesAutocomplete extends Component {
 
         if (request.status === 200) {
           const responseJSON = JSON.parse(request.responseText);
+          // console.log('request - ', request);
+          // console.log('responseJSON - ', responseJSON);
           if (typeof responseJSON.predictions !== 'undefined') {
             if (this._isMounted === true) {
               this._results = responseJSON.predictions;
@@ -776,7 +778,7 @@ GooglePlacesAutocomplete.defaultProps = {
   query: {
     key: 'missing api key',
     language: 'en',
-    types: 'geocode',
+    // types: 'geocode',
   },
   GoogleReverseGeocodingQuery: {},
   GooglePlacesSearchQuery: {
